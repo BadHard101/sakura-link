@@ -11,5 +11,8 @@ public class HomeController {
 		return "this is home controller";
 	}
 		
-	
+	@GetMapping("/home")
+	public String homeControllerHandler2() {
+		return "this is home controller2";
+	}
 }
