@@ -8,7 +8,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import java.time.LocalDateTime;
 import java.util.List;
-import java.util.Locale;
 import java.util.Optional;
 
 public class PostServiceImplementation  implements PostService {
@@ -41,7 +40,7 @@ public class PostServiceImplementation  implements PostService {
         User user = userService.findUserById(userId);
 
         if (post.getUser().getId() != user.getId()) {
-            throw new Exception("you can't delete another user post");
+            throw new Exception("you can't delete post of another user");
         }
 
         postRepository.delete(post);
