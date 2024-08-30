@@ -1,9 +1,7 @@
 package com.sakura.link.models;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import jakarta.persistence.*;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -22,11 +20,13 @@ public class Post {
 
     private String video;
 
+    @ManyToOne
     private User user;
 
-    private LocalDateTime createdAt;
-
+    @OneToMany
     private List<User> liked = new ArrayList<>();
+
+    private LocalDateTime createdAt;
 
     public Post() {
     }

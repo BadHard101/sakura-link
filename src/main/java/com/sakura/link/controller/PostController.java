@@ -48,9 +48,15 @@ public class PostController {
         return new ResponseEntity<>(posts, HttpStatus.OK);
     }
 
-    @PutMapping("/posts/{postId}/user/{userId}")
+    @PutMapping("/posts/save/{postId}/user/{userId}")
     public ResponseEntity<Post> savedPostHandler(@PathVariable Integer postId, @PathVariable Integer userId) throws Exception {
         Post post = postService.savedPost(postId, userId);
+        return new ResponseEntity<>(post, HttpStatus.ACCEPTED);
+    }
+
+    @PutMapping("/posts/like/{postId}/user/{userId}")
+    public ResponseEntity<Post> likePostHandler(@PathVariable Integer postId, @PathVariable Integer userId) throws Exception {
+        Post post = postService.likePost(postId, userId);
         return new ResponseEntity<>(post, HttpStatus.ACCEPTED);
     }
 }

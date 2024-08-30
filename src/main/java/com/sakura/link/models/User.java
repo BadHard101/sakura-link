@@ -1,5 +1,6 @@
 package com.sakura.link.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
 import java.util.ArrayList;
@@ -21,6 +22,8 @@ public class User {
     private List<Integer> followers = new ArrayList<>();
     private List<Integer> followings = new ArrayList<>();
 
+    @JsonIgnore
+    @ManyToMany
     private List<Post> savedPost = new ArrayList<>();
 
     public User() {
