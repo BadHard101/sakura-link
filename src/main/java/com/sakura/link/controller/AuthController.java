@@ -34,7 +34,7 @@ public class AuthController {
     @Autowired
     private CustomerUserDetailsService customerUserDetailsService;
 
-    @PostMapping("/api/signup")
+    @PostMapping("/signup")
     public AuthResponse createUser(@RequestBody User user) throws Exception {
 
         User isExist = userRepository.findByEmail(user.getEmail());

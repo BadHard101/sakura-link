@@ -15,42 +15,51 @@ import com.sakura.link.models.User;
 @RestController
 public class UserController {
 
-	@Autowired
-	UserRepository userRepository;
+    @Autowired
+    UserRepository userRepository;
 
-	@Autowired
-	UserService userService;
+    @Autowired
+    UserService userService;
 
-	@GetMapping("/api/users")
-	public List<User> getUsers() {
-		List<User> users = userRepository.findAll();
-		return users;
-	}
-	
-	@GetMapping("/api/users/{userId}")
-	public User getUserById(@PathVariable("userId") Integer userId) throws Exception {
+    @GetMapping("/api/users")
+    public List<User> getUsers() {
+        List<User> users = userRepository.findAll();
+        return users;
+    }
 
-		User foundUser = userService.findUserById(userId);
-		return foundUser;
-	}
+    @GetMapping("/api/users/{userId}")
+    public User getUserById(@PathVariable("userId") Integer userId) throws Exception {
 
-	@PutMapping("/api/users/{userId}")
-	public User updateUser(@RequestBody User user, @PathVariable Integer userId) throws Exception {
+        User foundUser = userService.findUserById(userId);
+        return foundUser;
+    }
 
-		User updatedUser = userService.updateUser(user, userId);
-		return updatedUser;
-	}
+    @PutMapping("/api/users") // (updating user's email provides SignIn for new JWT token)
+    public User updateUser(@RequestHeader("Authorization") String jwt, @RequestBody User user) throws Exception {
+        User reqUser = userService.findUserJwt(jwt);
+        User updatedUser = userService.updateUser(user, reqUser.getId());
+        return updatedUser;
+    }
 
-	@PutMapping("/api/users/follow/{userId1}/{userId2}")
-	public User followUserHandler(@PathVariable Integer userId1, @PathVariable Integer userId2) throws Exception {
+    @PutMapping("/api/users/follow/{userId2}")
+    public User followUserHandler(@RequestHeader("Authorization") String jwt,
+                                  @PathVariable Integer userId2) throws Exception {
 
-		User user = userService.followUser(userId1, userId2);
-		return user;
-	}
+        User reqUser = userService.findUserJwt(jwt);
+        User user = userService.followUser(reqUser.getId(), userId2);
+        return user;
+    }
 
-	@GetMapping("/api/users/search")
-	public List<User> searchUser(@RequestParam("query") String query) {
-		List<User> users = userService.searchUser(query);
-		return users;
-	}
+    @GetMapping("/api/users/search")
+    public List<User> searchUser(@RequestParam("query") String query) {
+        List<User> users = userService.searchUser(query);
+        return users;
+    }
+
+    @GetMapping("/api/users/profile")
+    public User getUserFromToken(@RequestHeader("Authorization") String jwt) {
+        User user = userService.findUserJwt(jwt);
+        user.setPassword(null);
+        return user;
+    }
 }
