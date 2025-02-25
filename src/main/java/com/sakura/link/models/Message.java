@@ -1,6 +1,8 @@
 package com.sakura.link.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -11,21 +13,22 @@ import java.util.List;
 @Entity
 @Data
 @NoArgsConstructor
-public class Chat {
-
+@AllArgsConstructor
+public class Message {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
 
-    private String chat_name;
+    private String content;
 
-    private String chat_image;
+    private String image;
 
-    @ManyToMany
-    private List<User> users = new ArrayList<>();
+    @ManyToOne
+    private User user;
+
+    @JsonIgnore
+    @ManyToOne
+    private Chat chat;
 
     private LocalDateTime timestamp;
-
-    @OneToMany(mappedBy = "chat")
-    private List<Message> messages = new ArrayList<>();
 }
