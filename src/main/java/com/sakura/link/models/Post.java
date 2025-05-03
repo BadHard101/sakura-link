@@ -1,6 +1,5 @@
 package com.sakura.link.models;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
 import java.time.LocalDateTime;
@@ -14,6 +13,8 @@ public class Post {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
 
+    @Lob
+    @Column(columnDefinition = "TEXT", nullable = false)
     private String caption;
 
     private String image;
@@ -23,7 +24,7 @@ public class Post {
     @ManyToOne
     private User user;
 
-    @OneToMany
+    @ManyToMany
     private List<User> liked = new ArrayList<>();
 
     private LocalDateTime createdAt;
