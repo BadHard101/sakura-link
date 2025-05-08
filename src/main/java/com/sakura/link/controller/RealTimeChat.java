@@ -1,7 +1,6 @@
 package com.sakura.link.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.messaging.Message;
 import org.springframework.messaging.handler.annotation.DestinationVariable;
 import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.messaging.handler.annotation.Payload;
@@ -14,11 +13,13 @@ public class RealTimeChat {
     @Autowired
     private SimpMessagingTemplate simpMessagingTemplate;
 
-    @MessageMapping("/chat/{groupId}")
-    public Message sendToUser(
-            @Payload Message message,
-            @DestinationVariable String groupId) {
-        simpMessagingTemplate.convertAndSendToUser(groupId, "/private", message);
-        return message;
+    // Клиент посылает на /app/chat/{chatId}
+    @MessageMapping("/chat/{chatId}")
+    public void processMessage(
+            @Payload com.sakura.link.models.Message message,
+            @DestinationVariable String chatId) {
+
+        // ✨ FIX: шлём всем подписанным на /chat/{chatId}
+        simpMessagingTemplate.convertAndSend("/chat/" + chatId, message);
     }
 }
