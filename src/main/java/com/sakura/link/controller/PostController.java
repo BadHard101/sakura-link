@@ -75,4 +75,14 @@ public class PostController {
         Post post = postService.likePost(postId, reqUser.getId());
         return new ResponseEntity<>(post, HttpStatus.ACCEPTED);
     }
+
+    @GetMapping("/api/posts/saved")
+    public ResponseEntity<List<Post>> getSavedPosts(
+            @RequestHeader("Authorization") String jwt) throws Exception {
+
+        User reqUser = userService.findUserJwt(jwt);
+        List<Post> posts = postService.findSavedPosts(reqUser.getId());
+
+        return new ResponseEntity<>(posts, HttpStatus.OK);
+    }
 }

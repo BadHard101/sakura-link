@@ -18,4 +18,7 @@ public interface PostService {
     Post savedPost(Integer postId, Integer userId) throws Exception;
 
     Post likePost(Integer postId, Integer userId) throws Exception;
+
+    List<Post> findSavedPosts(Integer userId) throws Exception;
+
 }

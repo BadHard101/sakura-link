@@ -97,4 +97,11 @@ public class PostServiceImplementation  implements PostService {
 
         return postRepository.save(post);
     }
+
+    @Override
+    public List<Post> findSavedPosts(Integer userId) throws Exception {
+        User user = userService.findUserById(userId);
+        return user.getSavedPost();
+    }
+
 }
