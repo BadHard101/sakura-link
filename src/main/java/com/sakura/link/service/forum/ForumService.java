@@ -82,6 +82,7 @@ public class ForumService {
                 t.getTitle(),
                 t.getAuthorId(),
                 t.getCreatedAt(),
+                t.isSolved(),                  // ← добавили
                 t.getPosts().stream().map(this::toDto).toList()
         );
     }
@@ -96,4 +97,16 @@ public class ForumService {
                 p.getCreatedAt()
         );
     }
+
+    public ThreadDto setSolved(Long id, boolean value, Integer requestUserId) {
+        ForumThread t = threadRepo.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("Thread not found: " + id));
+
+        if (!t.getAuthorId().equals(requestUserId))
+            throw new SecurityException("Only author can change status");
+
+        t.setSolved(value);
+        return toDto(threadRepo.save(t));
+    }
+
 }

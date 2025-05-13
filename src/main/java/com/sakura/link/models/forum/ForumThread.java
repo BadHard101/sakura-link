@@ -21,6 +21,8 @@ public class ForumThread {
 
     private LocalDateTime createdAt = LocalDateTime.now();
 
+    private boolean solved = false;
+
     @OneToMany(mappedBy = "thread",
             cascade = CascadeType.ALL,
             orphanRemoval = true,
@@ -29,26 +31,57 @@ public class ForumThread {
 
     /* ---------- constructors ---------- */
 
-    public ForumThread() {}
+    public ForumThread() {
+    }
 
     public ForumThread(String title, Integer authorId) {
-        this.title    = title;
+        this.title = title;
         this.authorId = authorId;
     }
 
     /* ---------- getters / setters ---------- */
 
-    public Long getId() { return id; }
+    public Long getId() {
+        return id;
+    }
 
-    public String getTitle() { return title; }
-    public void setTitle(String title) { this.title = title; }
+    public String getTitle() {
+        return title;
+    }
 
-    public Integer getAuthorId() { return authorId; }
-    public void setAuthorId(Integer authorId) { this.authorId = authorId; }
+    public void setTitle(String title) {
+        this.title = title;
+    }
 
-    public LocalDateTime getCreatedAt() { return createdAt; }
-    public void setCreatedAt(LocalDateTime createdAt) { this.createdAt = createdAt; }
+    public Integer getAuthorId() {
+        return authorId;
+    }
 
-    public List<ForumPost> getPosts() { return posts; }
-    public void setPosts(List<ForumPost> posts) { this.posts = posts; }
+    public void setAuthorId(Integer authorId) {
+        this.authorId = authorId;
+    }
+
+    public LocalDateTime getCreatedAt() {
+        return createdAt;
+    }
+
+    public void setCreatedAt(LocalDateTime createdAt) {
+        this.createdAt = createdAt;
+    }
+
+    public List<ForumPost> getPosts() {
+        return posts;
+    }
+
+    public void setPosts(List<ForumPost> posts) {
+        this.posts = posts;
+    }
+
+    public boolean isSolved() {
+        return solved;
+    }
+
+    public void setSolved(boolean s) {
+        this.solved = s;
+    }
 }

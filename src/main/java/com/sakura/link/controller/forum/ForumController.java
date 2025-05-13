@@ -52,4 +52,13 @@ public class ForumController {
         User user = userService.findUserJwt(jwt);
         return forumService.addPost(id, req, user.getId());
     }
+
+    @PatchMapping("/threads/{id}/status")
+    public ThreadDto changeStatus(@RequestHeader("Authorization") String jwt,
+                                  @PathVariable Long id,
+                                  @RequestParam boolean solved) {
+
+        User u = userService.findUserJwt(jwt);
+        return forumService.setSolved(id, solved, u.getId());
+    }
 }

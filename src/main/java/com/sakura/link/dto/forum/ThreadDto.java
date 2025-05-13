@@ -9,5 +9,6 @@ public record ThreadDto(
         String title,
         Integer authorId,
         LocalDateTime createdAt,
+        boolean solved,              /* ← новое поле */
         List<PostDto> posts
 ) {}
