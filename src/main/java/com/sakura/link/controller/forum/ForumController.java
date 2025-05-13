@@ -61,4 +61,12 @@ public class ForumController {
         User u = userService.findUserJwt(jwt);
         return forumService.setSolved(id, solved, u.getId());
     }
+
+    @PatchMapping("/posts/{id}/solution")
+    public ThreadDto markSolution(@RequestHeader("Authorization") String jwt,
+                                  @PathVariable Long id) {
+        User u = userService.findUserJwt(jwt);
+        return forumService.acceptSolution(id, u.getId());
+    }
+
 }

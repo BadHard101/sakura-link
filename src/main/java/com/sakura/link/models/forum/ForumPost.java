@@ -28,6 +28,8 @@ public class ForumPost {
 
     private LocalDateTime createdAt = LocalDateTime.now();
 
+    private Boolean solution = false;
+
     /* ---------- constructors ---------- */
 
     public ForumPost() {}
@@ -53,4 +55,7 @@ public class ForumPost {
 
     public LocalDateTime getCreatedAt() { return createdAt; }
     public void setCreatedAt(LocalDateTime createdAt) { this.createdAt = createdAt; }
+
+    public Boolean getSolution()          { return solution; }
+    public void    setSolution(Boolean s) { this.solution = s; }
 }

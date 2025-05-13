@@ -3,6 +3,7 @@ package com.sakura.link.service.forum;
 
 import com.sakura.link.dto.forum.*;
 import com.sakura.link.models.forum.*;
+import com.sakura.link.repository.UserRepository;
 import com.sakura.link.repository.forum.ForumPostRepository;
 import com.sakura.link.repository.forum.ForumThreadRepository;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
@@ -18,14 +19,17 @@ public class ForumService {
     private final ForumThreadRepository threadRepo;
     private final ForumPostRepository   postRepo;
     private final SimpMessagingTemplate broker;
+    private final UserRepository userRepository;
 
     public ForumService(ForumThreadRepository threadRepo,
                         ForumPostRepository postRepo,
-                        SimpMessagingTemplate broker) {
+                        SimpMessagingTemplate broker,
+                        UserRepository userRepository) {
 
         this.threadRepo = threadRepo;
         this.postRepo   = postRepo;
         this.broker     = broker;
+        this.userRepository = userRepository;
     }
 
     /* ---------- THREADS ---------- */
@@ -76,26 +80,52 @@ public class ForumService {
 
     /* ---------- mapping helpers ---------- */
 
+    private PostDto toDto(ForumPost p) {
+        String name = userRepository.findById(p.getAuthorId())
+                .map(u -> u.getFirstName() + " " + u.getLastName())
+                .orElse("User#" + p.getAuthorId());
+
+        return new PostDto(
+                p.getId(), p.getAuthorId(), name,
+                p.getContent(), p.getImage(),
+                p.getLikes(), p.getSolution(),
+                p.getCreatedAt()
+        );
+    }
+
     private ThreadDto toDto(ForumThread t) {
+        Long solutionId = t.getPosts().stream()
+                .filter(ForumPost::getSolution)
+                .map(ForumPost::getId)
+                .findFirst().orElse(null);
+
         return new ThreadDto(
-                t.getId(),
-                t.getTitle(),
-                t.getAuthorId(),
-                t.getCreatedAt(),
-                t.isSolved(),                  // ← добавили
+                t.getId(), t.getTitle(), t.getAuthorId(), t.getCreatedAt(),
+                t.isSolved(), solutionId,
                 t.getPosts().stream().map(this::toDto).toList()
         );
     }
 
-    private PostDto toDto(ForumPost p) {
-        return new PostDto(
-                p.getId(),
-                p.getAuthorId(),
-                p.getContent(),
-                p.getImage(),
-                p.getLikes(),
-                p.getCreatedAt()
-        );
+    /* ---------- принять решение ---------- */
+    public ThreadDto acceptSolution(Long postId, Integer requestUserId) {
+        ForumPost p = postRepo.findById(postId)
+                .orElseThrow(() -> new IllegalArgumentException("Post not found " + postId));
+        ForumThread thread = p.getThread();
+
+        if (!thread.getAuthorId().equals(requestUserId))
+            throw new SecurityException("Only thread author can accept solution");
+
+        /* снимаем прежнее решение, если было */
+        thread.getPosts().forEach(pp -> pp.setSolution(false));
+
+        p.setSolution(true);
+        thread.setSolved(true);
+
+        ThreadDto dto = toDto(threadRepo.save(thread));
+
+        // уведомляем подписчиков темы
+        broker.convertAndSend("/chat/forum/" + thread.getId(), toDto(p));
+        return dto;
     }
 
     public ThreadDto setSolved(Long id, boolean value, Integer requestUserId) {

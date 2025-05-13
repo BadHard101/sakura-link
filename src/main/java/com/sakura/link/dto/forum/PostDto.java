@@ -6,8 +6,10 @@ import java.time.LocalDateTime;
 public record PostDto(
         Long id,
         Integer authorId,
+        String authorName,
         String content,
         String image,
         Integer likes,
+        boolean solution,
         LocalDateTime createdAt
 ) {}
