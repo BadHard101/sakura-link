@@ -7,6 +7,7 @@ public record PostDto(
         Long id,
         Integer authorId,
         String authorName,
+        String authorAvatar,
         String content,
         String image,
         Integer likes,

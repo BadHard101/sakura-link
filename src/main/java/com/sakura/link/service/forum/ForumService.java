@@ -2,6 +2,7 @@
 package com.sakura.link.service.forum;
 
 import com.sakura.link.dto.forum.*;
+import com.sakura.link.models.User;
 import com.sakura.link.models.forum.*;
 import com.sakura.link.repository.UserRepository;
 import com.sakura.link.repository.forum.ForumPostRepository;
@@ -81,14 +82,27 @@ public class ForumService {
     /* ---------- mapping helpers ---------- */
 
     private PostDto toDto(ForumPost p) {
-        String name = userRepository.findById(p.getAuthorId())
+
+        /* вытаскиваем пользователя один раз, чтобы взять и имя, и аватар */
+        var userOpt = userRepository.findById(p.getAuthorId());
+
+        String name = userOpt
                 .map(u -> u.getFirstName() + " " + u.getLastName())
                 .orElse("User#" + p.getAuthorId());
 
+        String avatarUrl = userOpt
+                .map(User::getAvatar)
+                .orElse(null);
+
         return new PostDto(
-                p.getId(), p.getAuthorId(), name,
-                p.getContent(), p.getImage(),
-                p.getLikes(), p.getSolution(),
+                p.getId(),
+                p.getAuthorId(),
+                name,
+                avatarUrl,
+                p.getContent(),
+                p.getImage(),
+                p.getLikes(),
+                p.getSolution(),
                 p.getCreatedAt()
         );
     }
