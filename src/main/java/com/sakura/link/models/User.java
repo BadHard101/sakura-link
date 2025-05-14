@@ -15,9 +15,15 @@ public class User {
     private Integer id;
     private String firstName;
     private String lastName;
+    @Column(unique = true, nullable = false)
     private String email;
     private String password;
     private String gender;
+    @Column(unique = true, nullable = false)
+    private String username;
+
+    private String avatar;          // URL до аватарки
+    private String coverImage;      // URL до фоновой картинки профиля
 
     private List<Integer> followers = new ArrayList<>();
     private List<Integer> followings = new ArrayList<>();
@@ -27,17 +33,21 @@ public class User {
     private List<Post> savedPost = new ArrayList<>();
 
     public User() {
-        // TODO Auto-generated constructor stub
     }
 
-    public User(Integer id, String firstName, String lastName, String email, String password, String gender, List<Integer> followers, List<Integer> followings) {
-        this.id = id;
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.email = email;
-        this.password = password;
-        this.gender = gender;
-        this.followers = followers;
+    public User(Integer id, String firstName, String lastName, String email,
+                String password, String gender, String username, String avatar, String coverImage,
+                List<Integer> followers, List<Integer> followings) {
+        this.id         = id;
+        this.firstName  = firstName;
+        this.lastName   = lastName;
+        this.email      = email;
+        this.password   = password;
+        this.gender     = gender;
+        this.username   = username;
+        this.avatar     = avatar;
+        this.coverImage = coverImage;
+        this.followers  = followers;
         this.followings = followings;
     }
 
@@ -112,4 +122,13 @@ public class User {
     public void setSavedPost(List<Post> savedPost) {
         this.savedPost = savedPost;
     }
+
+    public String getAvatar()          { return avatar; }
+    public void   setAvatar(String a)  { this.avatar = a; }
+
+    public String getCoverImage()              { return coverImage; }
+    public void   setCoverImage(String cover)  { this.coverImage = cover; }
+
+    public String  getUsername()       { return username; }
+    public void    setUsername(String u){ this.username = u; }
 }

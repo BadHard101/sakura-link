@@ -63,28 +63,23 @@ public class UserServiceImplementation implements UserService {
     @Override
     public User updateUser(User user, Integer userId) throws Exception {
 
-        Optional<User> userOptional = userRepository.findById(userId);
+        Optional<User> optional = userRepository.findById(userId);
+        if (optional.isEmpty()) throw new Exception("user not exist with id " + userId);
 
-        if (userOptional.isEmpty()) {
-            throw new Exception("user not exist with id " + userId);
-        }
+        User old = optional.get();
 
-        User oldUser = userOptional.get();
+        if (user.getEmail()       != null) old.setEmail(user.getEmail());
+        if (user.getFirstName()   != null) old.setFirstName(user.getFirstName());
+        if (user.getLastName()    != null) old.setLastName(user.getLastName());
+        if (user.getPassword()    != null) old.setPassword(user.getPassword());
+        if (user.getGender()      != null) old.setGender(user.getGender());
+        if (user.getUsername()    != null) old.setUsername(user.getUsername());
 
-        if (user.getEmail() != null)
-            oldUser.setEmail(user.getEmail());
-        if (user.getFirstName() != null)
-            oldUser.setFirstName(user.getFirstName());
-        if (user.getLastName() != null)
-            oldUser.setLastName(user.getLastName());
-        if (user.getPassword() != null)
-            oldUser.setPassword(user.getPassword());
-        if (user.getGender() != null)
-            oldUser.setGender(user.getGender());
+        /*  ⬇️  новое  */
+        if (user.getAvatar()      != null) old.setAvatar(user.getAvatar());
+        if (user.getCoverImage()  != null) old.setCoverImage(user.getCoverImage());
 
-        User updatedUser = userRepository.save(oldUser);
-
-        return updatedUser;
+        return userRepository.save(old);
     }
 
     @Override
@@ -99,4 +94,5 @@ public class UserServiceImplementation implements UserService {
         User user = userRepository.findByEmail(email);
         return user;
     }
+
 }

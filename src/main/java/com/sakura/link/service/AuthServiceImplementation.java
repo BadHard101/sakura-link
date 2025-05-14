@@ -32,23 +32,27 @@ public class AuthServiceImplementation implements AuthService {
 
     @Override
     public AuthResponse registerUser(User user) throws Exception {
-        User isExist = userRepository.findByEmail(user.getEmail());
-        if (isExist != null) { throw new Exception("this email is already used"); }
+
+        if (userRepository.findByEmail(user.getEmail())     != null)
+            throw new Exception("email already in use");
+
+        if (userRepository.findByUsername(user.getUsername()) != null)
+            throw new Exception("username already taken");
 
         User newUser = new User();
         newUser.setEmail(user.getEmail());
         newUser.setFirstName(user.getFirstName());
         newUser.setLastName(user.getLastName());
+        newUser.setUsername(user.getUsername());          // ➕
         newUser.setPassword(passwordEncoder.encode(user.getPassword()));
 
-        User savedUser = userRepository.save(newUser);
-        Authentication authentication = new UsernamePasswordAuthenticationToken(
-                savedUser.getEmail(),
-                savedUser.getPassword()
-        );
-        String token = JwtProvider.generateToken(authentication);
-        AuthResponse res = new AuthResponse(token, "Register Success");
-        return res;
+        User saved = userRepository.save(newUser);
+
+        Authentication auth = new UsernamePasswordAuthenticationToken(
+                saved.getEmail(), saved.getPassword());
+
+        String token = JwtProvider.generateToken(auth);
+        return new AuthResponse(token, "Register success");
     }
 
     @Override
