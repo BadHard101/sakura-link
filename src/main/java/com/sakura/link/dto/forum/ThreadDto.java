@@ -8,6 +8,8 @@ public record ThreadDto(
         Long id,
         String title,
         Integer authorId,
+        String authorName,
+        String authorAvatar,
         LocalDateTime createdAt,
         boolean solved,
         Long solutionPostId,

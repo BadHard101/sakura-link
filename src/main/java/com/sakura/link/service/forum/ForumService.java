@@ -108,14 +108,33 @@ public class ForumService {
     }
 
     private ThreadDto toDto(ForumThread t) {
+        /* берём данные автора */
+        var userOpt = userRepository.findById(t.getAuthorId());
+
+        String name   = userOpt
+                .map(u -> u.getFirstName() + " " + u.getLastName())
+                .orElse("User#" + t.getAuthorId());
+
+        String avatar = userOpt
+                .map(User::getAvatar)
+                .orElse(null);
+
+        /* id решения, если есть */
         Long solutionId = t.getPosts().stream()
                 .filter(ForumPost::getSolution)
                 .map(ForumPost::getId)
-                .findFirst().orElse(null);
+                .findFirst()
+                .orElse(null);
 
         return new ThreadDto(
-                t.getId(), t.getTitle(), t.getAuthorId(), t.getCreatedAt(),
-                t.isSolved(), solutionId,
+                t.getId(),
+                t.getTitle(),
+                t.getAuthorId(),
+                name,                // authorName
+                avatar,              // authorAvatar
+                t.getCreatedAt(),
+                t.isSolved(),
+                solutionId,
                 t.getPosts().stream().map(this::toDto).toList()
         );
     }
