@@ -1,5 +1,6 @@
 ## Веб-приложение туристического справочника по Японии 🌸 "SakuraLink"
 Добро пожаловать в репозиторий проекта "SakuraLink"!  
+
 ![SakuraLink](https://i.pinimg.com/originals/58/31/59/5831595354177b00eef935f7deb13cd3.jpg)
 
 ### О проекте  
@@ -33,8 +34,30 @@
 
 ---  
 
-##Скриншоты
+## Скриншоты
+![Лента профиля](https://github.com/BadHard101/sakura-link/blob/master/src/main/resources/Лента.png)
+<p align="center"><em>Лента профиля с постами</em></p>  
 
+![Страница профиля](https://github.com/BadHard101/sakura-link/blob/master/src/main/resources/Профиль.png)
+<p align="center"><em>Страница профиля пользователя</em></p>  
+
+![Страница городов](https://github.com/BadHard101/sakura-link/blob/master/src/main/resources/Города.png)
+<p align="center"><em>Страница городов</em></p>  
+
+![Страница достопримечательности](https://github.com/BadHard101/sakura-link/blob/master/src/main/resources/Страница%20достоприм.png)
+<p align="center"><em>Страница достопримечательности</em></p>  
+
+![Окно отзыва на достопримечательность](https://github.com/BadHard101/sakura-link/blob/master/src/main/resources/Отзыв.png)
+<p align="center"><em>Окно отзыва на достопримечательность</em></p>  
+
+![Страница статей](https://github.com/BadHard101/sakura-link/blob/master/src/main/resources/Статьи.png)
+<p align="center"><em>Страница статей</em></p>  
+
+![Страница выбранной статьи](https://github.com/BadHard101/sakura-link/blob/master/src/main/resources/Статья.png)
+<p align="center"><em>Страница выбранной статьи</em></p>  
+
+![Страница форума](https://github.com/BadHard101/sakura-link/blob/master/src/main/resources/Форум.png)
+<p align="center"><em>Страница форума</em></p>  
 
 ---  
 
