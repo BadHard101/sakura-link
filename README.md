@@ -39,17 +39,17 @@
 ### Лента профиля
 
 <p align="center">
-  <img src="https://github.com/BadHard101/sakura-link/blob/master/src/main/resources/Лента.png" alt="Лента профиля">
+  <img src="https://github.com/BadHard101/sakura-link/blob/master/src/main/resources/Новый комментарий на посте.png" alt="Лента профиля">
 </p>
 
-<p align="center"><em>Лента профиля с постами пользователя.</em></p>
+<p align="center"><em>Новостная лента пользователя.</em></p>
 
 Лента отображает пользовательские публикации и активность. Этот экран показывает социальную часть приложения: контент пользователя, карточки постов и взаимодействие с материалами.
 
 ### Профиль пользователя
 
 <p align="center">
-  <img src="https://github.com/BadHard101/sakura-link/blob/master/src/main/resources/Профиль.png" alt="Страница профиля">
+  <img src="https://github.com/BadHard101/sakura-link/blob/master/src/main/resources/Профиль пользователя.png" alt="Страница профиля">
 </p>
 
 <p align="center"><em>Страница профиля с данными пользователя, аватаром и фоном.</em></p>
@@ -59,7 +59,7 @@
 ### Каталог городов
 
 <p align="center">
-  <img src="https://github.com/BadHard101/sakura-link/blob/master/src/main/resources/Города.png" alt="Каталог городов">
+  <img src="https://github.com/BadHard101/sakura-link/blob/master/src/main/resources/Список городов и их достопримечательностей с фильтрами.png" alt="Каталог городов">
 </p>
 
 <p align="center"><em>Каталог городов Японии.</em></p>
@@ -69,7 +69,7 @@
 ### Страница достопримечательности
 
 <p align="center">
-  <img src="https://github.com/BadHard101/sakura-link/blob/master/src/main/resources/Страница%20достоприм.png" alt="Страница достопримечательности">
+  <img src="https://github.com/BadHard101/sakura-link/blob/master/src/main/resources/Страница достопримечательности.png" alt="Страница достопримечательности">
 </p>
 
 <p align="center"><em>Карточка туристического объекта с описанием и пользовательскими действиями.</em></p>
@@ -99,7 +99,7 @@
 ### Страница статьи
 
 <p align="center">
-  <img src="https://github.com/BadHard101/sakura-link/blob/master/src/main/resources/Статья.png" alt="Страница статьи">
+  <img src="https://github.com/BadHard101/sakura-link/blob/master/src/main/resources/Просмотр выбранной статьи.png" alt="Страница статьи">
 </p>
 
 <p align="center"><em>Просмотр выбранной статьи.</em></p>
@@ -109,12 +109,32 @@
 ### Форум
 
 <p align="center">
-  <img src="https://github.com/BadHard101/sakura-link/blob/master/src/main/resources/Форум.png" alt="Форум SakuraLink">
+  <img src="https://github.com/BadHard101/sakura-link/blob/master/src/main/resources/Страница Форум с темами.png" alt="Форум SakuraLink">
 </p>
 
 <p align="center"><em>Форум для вопросов, обсуждений и обмена опытом.</em></p>
 
 Форум предназначен для вопросов, обсуждений и обмена опытом между пользователями. Включает темы, сообщения, жалобы и сценарии модерации.
+
+### Обсуждение темы форума
+
+<p align="center">
+  <img src="https://github.com/BadHard101/sakura-link/blob/master/src/main/resources/Чат%20с%20решенной%20темой.png" alt="Обсуждение решенной темы форума">
+</p>
+
+<p align="center"><em>Обсуждение конкретной темы на форуме с отмеченным решением.</em></p>
+
+Экран темы форума показывает диалог между пользователями в формате чата. Пользователи могут отвечать на сообщения, обсуждать вопрос и отмечать полезный ответ как решение, после чего тема получает статус решенной.
+
+### Личный чат
+
+<p align="center">
+  <img src="https://github.com/BadHard101/sakura-link/blob/master/src/main/resources/Чат.png" alt="Личный чат пользователей SakuraLink">
+</p>
+
+<p align="center"><em>Общение пользователей в реальном времени в личном чате.</em></p>
+
+Личный чат позволяет пользователям обмениваться сообщениями без перезагрузки страницы. Экран демонстрирует real-time взаимодействие между пользователями и работу WebSocket-коммуникации в приложении.
 
 ## Роли пользователей
 
